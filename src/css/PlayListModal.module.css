@@ -1,0 +1,62 @@
+.container {
+    width: 15rem;
+    height: 25rem;
+}
+
+.text {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.modalHead {
+    justify-content: space-between;
+}
+
+.btn {
+    width: 8rem;
+}
+
+.closeBtn:hover,
+.createPlaylistBtnContainer:hover {
+    cursor: pointer;
+}
+
+.createPlaylistBtnContainer {
+    width: 100%;
+    justify-content: center;
+}
+
+.createPlaylistContainer {
+    width: 100%;
+    margin-bottom: 10rem;
+}
+
+.createBtn {
+    width: 4rem;
+    padding: 0.25rem;
+    margin: 1rem 0rem;
+}
+
+.footer {
+    flex-direction: column;
+    padding: 0.75rem 0.5rem;
+    position: relative;
+}
+
+.inputContainer {
+    align-items: center;
+}
+
+label,
+input {
+    font-size: 1rem;
+}
+
+label {
+    margin: 0rem 0.25rem;
+}
+
+input {
+    margin: 0rem 0.25rem;
+    padding: 0.25rem;
+}

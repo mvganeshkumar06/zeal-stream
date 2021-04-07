@@ -1,0 +1,55 @@
+.playListContainer {
+    width: 100%;
+    margin: 5rem 0rem;
+    align-items: center;
+}
+
+.inputContainer {
+    width: 100%;
+    position: relative;
+    justify-content: space-between;
+}
+
+.deleteBtn {
+    position: absolute;
+}
+
+.playListCard {
+    width: 12rem;
+    height: 12rem;
+    padding: 0.5rem;
+}
+
+.viewFullPlayListBtn {
+    padding: 0;
+    margin-left: 0;
+    margin-right: 0;
+    width: 10rem;
+}
+
+.container {
+    width: 100%;
+    gap: 0.25rem;
+}
+
+.videosCount {
+    padding-left: 0.5rem;
+}
+
+@media (min-width: 475px) {
+    .container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}

@@ -6,7 +6,7 @@ import navigationItems from "../utils/NavigationItems";
 
 const NavigationDesktop = () => {
     return (
-        <div className={`align-items-row ${styles.navContainer}`}>
+        <div className={`align-items-row ${styles.navigationContainer}`}>
             {navigationItems.map(({ id, name, url }) => {
                 return (
                     <span key={id}>

@@ -20,8 +20,8 @@ const PlayListModal = ({
 
     return (
         <div className={`modal-backdrop`}>
-            <div className={`modal modal-center ${styles.container}`}>
-                <div className={`modal-header ${styles.modalHead}`}>
+            <div className={`modal modal-center ${styles.modalContainer}`}>
+                <div className={`modal-header ${styles.modalHeader}`}>
                     <h2 className={`sub-heading-2`}>Add to playlist ...</h2>
                     <HighlightOffIcon
                         onClick={() =>
@@ -61,7 +61,6 @@ const PlayListModal = ({
                                     {currPlayList.name}
                                 </label>
                                 <span
-                                    className={`${styles.deleteBtn}`}
                                     onClick={() =>
                                         dispatch({
                                             type: "DELETE_PLAYLIST",
@@ -75,7 +74,7 @@ const PlayListModal = ({
                         );
                     })}
                 </div>
-                <div className={`modal-footer ${styles.footer}`}>
+                <div className={`modal-footer ${styles.modalFooter}`}>
                     <h2 className={`${styles.text}`}>Create New PlayList</h2>
                     <div
                         className={`align-items-col ${styles.createPlaylistContainer}`}

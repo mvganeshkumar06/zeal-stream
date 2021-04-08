@@ -19,7 +19,7 @@ const Navigation = () => {
                 />
             </span>
             {isNavigationOpen && (
-                <div className={`bg-overlay ${styles.container}`}>
+                <div className={`bg-overlay ${styles.navigationListcontainer}`}>
                     <HighlightOffIcon
                         className={styles.navigationCloseBtn}
                         fontSize="large"

@@ -1,4 +1,4 @@
-.container {
+.modalContainer {
     width: 15rem;
     height: 25rem;
 }
@@ -8,22 +8,12 @@
     font-weight: normal;
 }
 
-.modalHead {
+.modalHeader {
     justify-content: space-between;
 }
 
-.btn {
-    width: 8rem;
-}
-
-.closeBtn:hover,
-.createPlaylistBtnContainer:hover {
+.closeBtn:hover {
     cursor: pointer;
-}
-
-.createPlaylistBtnContainer {
-    width: 100%;
-    justify-content: center;
 }
 
 .createPlaylistContainer {
@@ -37,7 +27,7 @@
     margin: 1rem 0rem;
 }
 
-.footer {
+.modalFooter {
     flex-direction: column;
     padding: 0.75rem 0.5rem;
     position: relative;

@@ -8,12 +8,12 @@ const Video = ({ currVideo }) => {
     const { name, views, uploadTime } = currVideo;
     const [isPlayListModalOpen, setIsPlayListModalOpen] = useState(false);
     return (
-        <div className={`card align-items-col ${styles.item}`}>
+        <div className={`card align-items-col ${styles.videoContainer}`}>
             <div className={`img img-row ${styles.img}`} />
             <span className={styles.duration}>02.40</span>
             <div className={`align-items-row ${styles.detailsContainer}`}>
                 <span className={styles.channelAvatar} />
-                <div className={styles.details}>
+                <div className={styles.detailsItem}>
                     <span>{name}</span>
                     <span>
                         {uploadTime.slice(0, 1)} months ago | {views} K views

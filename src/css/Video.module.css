@@ -1,4 +1,4 @@
-.item {
+.videoContainer {
     width: 95%;
     height: 15rem;
     align-items: center;
@@ -24,7 +24,7 @@
     align-items: center;
 }
 
-.details {
+.detailsItem {
     display: flex;
     flex-direction: column;
     margin: 0rem 0.25rem;
@@ -55,13 +55,13 @@
 }
 
 @media (min-width: 475px) {
-    .item {
+    .videoContainer {
         height: 18rem;
     }
 }
 
 @media (min-width: 768px) {
-    .item {
+    .videoContainer {
         height: 20rem;
     }
 }

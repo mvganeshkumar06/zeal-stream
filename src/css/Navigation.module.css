@@ -1,42 +1,42 @@
-.container {
-	width: 8rem;
-	position: fixed;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	padding: 2rem 1rem;
-	z-index: var(--level-3);
+.navigationListContainer {
+    width: 8rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    padding: 2rem 1rem;
+    z-index: var(--level-3);
 }
 
 .navigationOpenBtn {
-	position: fixed;
-	top: 0.8rem;
-	left: 0.25rem;
-	font-weight: bold;
-	z-index: var(--level-1);
+    position: fixed;
+    top: 0.8rem;
+    left: 0.25rem;
+    font-weight: bold;
+    z-index: var(--level-1);
 }
 
 .navigationCloseBtn {
-	position: absolute;
-	top: 1rem;
-	right: 0.5rem;
-	font-weight: bold;
-	z-index: var(--level-1);
+    position: absolute;
+    top: 1rem;
+    right: 0.5rem;
+    font-weight: bold;
+    z-index: var(--level-1);
 }
 
 .navigationOpenBtn:hover,
 .navigationCloseBtn:hover {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 @media (min-width: 768px) {
-	.container {
-		width: 10rem;
-	}
+    .navigationListContainer {
+        width: 10rem;
+    }
 }
 
 @media (min-width: 1024px) {
-	.menuIcon {
-		display: none;
-	}
+    .menuIcon {
+        display: none;
+    }
 }

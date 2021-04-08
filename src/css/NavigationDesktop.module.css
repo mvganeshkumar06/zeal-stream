@@ -1,16 +1,16 @@
-.navContainer {
-	display: none;
+.navigationContainer {
+    display: none;
 }
 
 @media (min-width: 1024px) {
-	.navContainer {
-		display: flex;
-		position: fixed;
-		top: 1.25rem;
-		left: 15rem;
-		z-index: var(--level-1);
-		width: 25rem;
-		justify-content: space-evenly;
-		font-weight: bold;
-	}
+    .navigationContainer {
+        display: flex;
+        position: fixed;
+        top: 1.25rem;
+        left: 15rem;
+        z-index: var(--level-1);
+        width: 25rem;
+        justify-content: space-evenly;
+        font-weight: bold;
+    }
 }

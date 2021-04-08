@@ -23,7 +23,7 @@ const PlayList = () => {
                 {currPlayList.videos.length} video(s)
             </p>
             <span className={`divider`} />
-            <div className={`grid grid-col-1 ${styles.container}`}>
+            <div className={`grid grid-col-1 ${styles.videosContainer}`}>
                 {currPlayList.videos.map((video) => {
                     return <Video currVideo={video} key={video.id} />;
                 })}

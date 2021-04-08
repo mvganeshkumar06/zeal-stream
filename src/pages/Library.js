@@ -10,8 +10,8 @@ const Library = () => {
     } = useContext(VideoContext);
 
     return (
-        <div className={`align-items-col ${styles.playListContainer}`}>
-            <div className={`grid grid-col-1 ${styles.playListItem}`}>
+        <div className={`align-items-col ${styles.libraryContainer}`}>
+            <div className={`grid grid-col-1 ${styles.playListContainer}`}>
                 {playList.map(({ id, name, createdBy, videos }) => {
                     return (
                         <div
@@ -24,7 +24,7 @@ const Library = () => {
                             </span>
                             <Link to={`/playlist/${id}`}>
                                 <button
-                                    className={`btn ${styles.viewFullPlayListBtn}`}
+                                    className={`btn ${styles.viewPlayListBtn}`}
                                 >
                                     View PlayList
                                 </button>

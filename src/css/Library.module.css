@@ -1,10 +1,10 @@
-.playListContainer {
+.libraryContainer {
     width: 100%;
     margin: 5rem 0rem;
     align-items: center;
 }
 
-.playListItem {
+.playListContainer {
     width: 100%;
 }
 
@@ -14,14 +14,14 @@
     padding: 0.5rem;
 }
 
-.viewFullPlayListBtn {
+.viewPlayListBtn {
     padding: 0.25rem;
     margin-left: 0;
     margin-right: 0;
 }
 
 @media (min-width: 425px) {
-    .playListItem {
+    .playListContainer {
         width: 100%;
         grid-template-columns: repeat(2, 1fr);
         gap: 0 0;
@@ -29,13 +29,13 @@
 }
 
 @media (min-width: 768px) {
-    .playListItem {
+    .playListContainer {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media (min-width: 1024px) {
-    .playListItem {
+    .playListContainer {
         grid-template-columns: repeat(4, 1fr);
     }
 }

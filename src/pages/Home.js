@@ -50,7 +50,7 @@ const Home = () => {
                     </h2>
                 )}
             </div>
-            <div className={`grid grid-col-1 ${styles.container}`}>
+            <div className={`grid grid-col-1 ${styles.videosContainer}`}>
                 {videos.map((video) => {
                     return <Video currVideo={video} key={video.id} />;
                 })}

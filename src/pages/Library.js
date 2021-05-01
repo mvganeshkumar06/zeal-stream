@@ -1,39 +1,74 @@
 import React, { useContext } from "react";
-import "../css/DriftUI.css";
-import styles from "../css/Library.module.css";
+import { Container, Grid, Button, Text } from "@zeal-ui/core";
 import VideoContext from "../context/VideoContext";
 import { Link } from "react-router-dom";
 
 const Library = () => {
+    const styles = `
+        width: 100%;
+        margin: 5rem 0rem;
+        align-items: center;
+
+        .playListContainer {
+            width: 100%;
+        }
+
+        .playListCard {
+            width: 90%;
+            height: 6rem;
+            padding: 0.5rem;
+        }
+
+        .viewPlayListBtn {
+            padding: 0.25rem;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        @media (min-width: 425px) {
+            .playListContainer {
+                grid-template-columns: repeat(2, 1fr);
+                grid-gap: 0rem 0rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .playListContainer {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .playListContainer {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    `;
+
     const {
         state: { playList },
     } = useContext(VideoContext);
 
     return (
-        <div className={`align-items-col ${styles.libraryContainer}`}>
-            <div className={`grid grid-col-1 ${styles.playListContainer}`}>
+        <Container type="col" customStyles={styles}>
+            <Grid col={1} className="playListContainer">
                 {playList.map(({ id, name, createdBy, videos }) => {
                     return (
-                        <div
-                            key={id}
-                            className={`card align-items-col ${styles.playListCard}`}
-                        >
-                            <span>{name}</span>
-                            <span>
+                        <Container key={id} className="playListCard">
+                            <Text>{name}</Text>
+                            <Text>
                                 {createdBy} | {videos.length} video(s)
-                            </span>
+                            </Text>
                             <Link to={`/playlist/${id}`}>
-                                <button
-                                    className={`btn ${styles.viewPlayListBtn}`}
-                                >
+                                <Button className="viewPlayListBtn">
                                     View PlayList
-                                </button>
+                                </Button>
                             </Link>
-                        </div>
+                        </Container>
                     );
                 })}
-            </div>
-        </div>
+            </Grid>
+        </Container>
     );
 };
 

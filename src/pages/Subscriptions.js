@@ -1,12 +1,15 @@
 import React from "react";
-import "../css/DriftUI.css";
-import styles from "../css/Subscriptions.module.css";
+import { Container, Text } from "@zeal-ui/core";
 
 const Subscriptions = () => {
+    const styles = `
+        width: 100%;
+        margin: 5rem 0rem;
+    `;
     return (
-        <div className={`align-items-col ${styles.subscriptionsContainer}`}>
-            <h1 className={`main-heading`}>Subscriptions</h1>
-        </div>
+        <Container type="col" rowCenter customStyles={styles}>
+            <Text type="mainHeading">Subscriptions</Text>
+        </Container>
     );
 };
 

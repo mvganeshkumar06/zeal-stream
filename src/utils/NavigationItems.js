@@ -6,13 +6,18 @@ const navigationItems = [
     },
     {
         id: 2,
+        name: "Library",
+        url: "/library",
+    },
+    {
+        id: 3,
         name: "Subscriptions",
         url: "/subscriptions",
     },
     {
-        id: 3,
-        name: "Library",
-        url: "/library",
+        id: 4,
+        name: "Login",
+        url: "/login",
     },
 ];
 

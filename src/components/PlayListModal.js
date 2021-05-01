@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import styles from "../css/PlayListModal.module.css";
+import { Container, Modal, Label, Input, Text, Button } from "@zeal-ui/core";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import VideoContext from "../context/VideoContext";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -9,6 +9,61 @@ const PlayListModal = ({
     setIsPlayListModalOpen,
     currVideo,
 }) => {
+    const styles = `
+        .modalContainer {
+            width: 15rem;
+            height: 25rem;
+        }
+
+        .text {
+            font-size: 1rem;
+            font-weight: normal;
+        }
+
+        .modalHeader {
+            justify-content: space-between;
+        }
+
+        .closeBtn:hover {
+            cursor: pointer;
+        }
+
+        .createPlaylistContainer {
+            width: 100%;
+            margin-bottom: 10rem;
+        }
+
+        .createBtn {
+            width: 4rem;
+            padding: 0.25rem;
+            margin: 1rem 0rem;
+        }
+
+        .modalFooter {
+            flex-direction: column;
+            padding: 0.75rem 0.5rem;
+            position: relative;
+        }
+
+        .inputContainer {
+            align-items: center;
+        }
+
+        label,
+        input {
+            font-size: 1rem;
+        }
+
+        label {
+            margin: 0rem 0.25rem;
+        }
+
+        input {
+            margin: 0rem 0.25rem;
+            padding: 0.25rem;
+        }
+    `;
+
     const {
         state: { playList, playListName },
         dispatch,
@@ -19,25 +74,26 @@ const PlayListModal = ({
     };
 
     return (
-        <div className={`modal-backdrop`}>
-            <div className={`modal modal-center ${styles.modalContainer}`}>
-                <div className={`modal-header ${styles.modalHeader}`}>
-                    <h2 className={`sub-heading-2`}>Add to playlist ...</h2>
+        <Container type="col" customStyles={styles}>
+            <Modal className="modalContainer">
+                <Container className="modalHeader">
+                    <Text type="subHeading">Add to playlist ...</Text>
                     <HighlightOffIcon
                         onClick={() =>
                             setIsPlayListModalOpen(!isPlayListModalOpen)
                         }
-                        className={`${styles.closeBtn}`}
+                        className="closeBtn"
                     />
-                </div>
-                <div className={`modal-content`}>
+                </Container>
+                <Container className={`modal-content`}>
                     {playList.map((currPlayList) => {
                         return (
-                            <div
-                                className={`align-items-row ${styles.inputContainer}`}
+                            <Container
+                                type="row"
+                                className="inputContainer"
                                 key={currPlayList.id}
                             >
-                                <input
+                                <Input
                                     id={currPlayList.id}
                                     type="checkbox"
                                     name="playlist"
@@ -57,9 +113,9 @@ const PlayListModal = ({
                                         })
                                     }
                                 />
-                                <label htmlFor={currPlayList.id}>
+                                <Label htmlFor={currPlayList.id}>
                                     {currPlayList.name}
-                                </label>
+                                </Label>
                                 <span
                                     onClick={() =>
                                         dispatch({
@@ -70,17 +126,15 @@ const PlayListModal = ({
                                 >
                                     <DeleteIcon />
                                 </span>
-                            </div>
+                            </Container>
                         );
                     })}
-                </div>
-                <div className={`modal-footer ${styles.modalFooter}`}>
-                    <h2 className={`${styles.text}`}>Create New PlayList</h2>
-                    <div
-                        className={`align-items-col ${styles.createPlaylistContainer}`}
-                    >
-                        <label htmlFor="playlist-name">Name</label>
-                        <input
+                </Container>
+                <Container className="modalFooter">
+                    <Text className="text">Create New PlayList</Text>
+                    <Container type="col" className="createPlaylistContainer">
+                        <Label htmlFor="playlist-name">Name</Label>
+                        <Input
                             id="playlist-name"
                             type="text"
                             placeholder="Enter playlist name"
@@ -92,8 +146,8 @@ const PlayListModal = ({
                                 })
                             }
                         />
-                        <button
-                            className={`btn ${styles.createBtn}`}
+                        <Button
+                            className="createBtn"
                             onClick={() => {
                                 if (playListName) {
                                     dispatch({
@@ -104,11 +158,11 @@ const PlayListModal = ({
                             }}
                         >
                             Create
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+                        </Button>
+                    </Container>
+                </Container>
+            </Modal>
+        </Container>
     );
 };
 

@@ -1,61 +1,77 @@
 import React, { useState, useEffect, useContext } from "react";
-import "../css/DriftUI.css";
-import styles from "../css/Home.module.css";
+import { Container, Spinner, Alert, Grid } from "@zeal-ui/core";
 import { Video } from "../components";
 import axios from "axios";
 import VideoContext from "../context/VideoContext";
-import createMockServer from "../server/mock-server";
-
-createMockServer({ environment: "development" });
 
 const Home = () => {
+    const styles = `
+        margin: 5rem 0rem;
+
+        .videosContainer {
+            width: 100%;
+            grid-gap: 0.25rem;
+        }
+
+        @media (min-width: 475px) {
+            .videosContainer {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .videosContainer {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .videosContainer {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    `;
+
     const {
         state: { videos },
         dispatch,
     } = useContext(VideoContext);
 
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(false);
 
     useEffect(() => {
-        try {
-            setIsLoading(true);
-            const fetchData = async () => {
+        const fetchData = async () => {
+            try {
                 const response = await axios({
-                    method: "Get",
+                    method: "get",
                     url: "/videos",
                 });
                 dispatch({
                     type: "SET_VIDEOS",
                     payload: response.data.videos,
                 });
-            };
-            fetchData();
-        } catch (error) {
-            setIsError(true);
-        } finally {
-            setIsLoading(false);
-        }
+            } catch (error) {
+                setIsError(true);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchData();
     }, [dispatch]);
 
     return (
-        <div className={`align-items-col ${styles.homeContainer}`}>
-            <div>
-                {isLoading && (
-                    <h2 className="alert alert-info">Loading videos...</h2>
-                )}
-                {isError && (
-                    <h2 className="alert alert-danger">
-                        Something went wrong !
-                    </h2>
-                )}
-            </div>
-            <div className={`grid grid-col-1 ${styles.videosContainer}`}>
+        <Container type="col" width="100%" rowCenter customStyles={styles}>
+            <Container>
+                {isLoading && <Spinner />}
+                {isError && <Alert type="danger">Something went wrong !</Alert>}
+            </Container>
+            <Grid col={1} className="videosContainer">
                 {videos.map((video) => {
-                    return <Video currVideo={video} key={video.id} />;
+                    return <Video videoDetails={video} key={video.id} />;
                 })}
-            </div>
-        </div>
+            </Grid>
+        </Container>
     );
 };
 

@@ -1,34 +1,85 @@
 import React, { useState } from "react";
-import "../css/DriftUI.css";
-import styles from "../css/Navigation.module.css";
+import {
+    Container,
+    List,
+    ListItem,
+    useStyleContext,
+    useThemeContext,
+} from "@zeal-ui/core";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Link } from "react-router-dom";
 import navigationItems from "../utils/NavigationItems";
 
 const Navigation = () => {
+    const style = useStyleContext();
+    const { theme } = useThemeContext();
+
+    const styles = `
+        .navigationListContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            padding: 2rem 1rem;
+            background-color:${
+                theme === "light" ? style.colors.gray[1] : style.colors.gray[3]
+            };
+            z-index: ${style.zIndex[3]};
+        }
+
+        .navigationOpenBtn {
+            width:1.5rem;
+            height:1.5rem;
+            position: fixed;
+            top: 1.25rem;
+            left: 0.25rem;
+            z-index: ${style.zIndex[1]};
+        }
+
+        .navigationCloseBtn {
+            width:1.5rem;
+            height:1.5rem;
+            position: absolute;
+            top: 1.25rem;
+            right: 0.5rem;
+            z-index: ${style.zIndex[1]};
+        }
+
+        .navigationOpenBtn:hover,
+        .navigationCloseBtn:hover {
+            cursor: pointer;
+        }
+
+        .list{
+            list-style-type:none;
+        }
+
+        @media (min-width: 1024px) {
+            .navigationOpenBtn {
+                display: none;
+            }
+        }
+    `;
+
     const [isNavigationOpen, setIsNavigationOpen] = useState(false);
 
     return (
-        <div>
-            <span className={styles.menuIcon}>
-                <MenuIcon
-                    className={`scroll-auto ${styles.navigationOpenBtn}`}
-                    onClick={() => setIsNavigationOpen(!isNavigationOpen)}
-                    fontSize="large"
-                />
-            </span>
+        <Container type="col" customStyles={styles}>
+            <MenuIcon
+                className="navigationOpenBtn"
+                onClick={() => setIsNavigationOpen(!isNavigationOpen)}
+            />
             {isNavigationOpen && (
-                <div className={`bg-overlay ${styles.navigationListcontainer}`}>
+                <Container className="navigationListContainer">
                     <HighlightOffIcon
-                        className={styles.navigationCloseBtn}
-                        fontSize="large"
+                        className="navigationCloseBtn"
                         onClick={() => setIsNavigationOpen(!isNavigationOpen)}
                     />
-                    <ul className="list">
+                    <List className="list">
                         {navigationItems.map(({ id, name, url }) => {
                             return (
-                                <li className="list-link" key={id}>
+                                <ListItem key={id}>
                                     <Link
                                         to={url}
                                         onClick={() => {
@@ -39,13 +90,13 @@ const Navigation = () => {
                                     >
                                         {name}
                                     </Link>
-                                </li>
+                                </ListItem>
                             );
                         })}
-                    </ul>
-                </div>
+                    </List>
+                </Container>
             )}
-        </div>
+        </Container>
     );
 };
 

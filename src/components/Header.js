@@ -14,13 +14,15 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
     const style = useStyleContext();
-    const { toggleTheme } = useThemeContext();
+    const { theme, toggleTheme } = useThemeContext();
 
     const styles = `
         height: 4rem;
         position: fixed;
         top: 0;
         border-bottom: ${style.common.border};
+        z-index:${style.zIndex[2]};
+        background-color:${theme === "light" ? "white" : style.colors.gray[4]};
 
         .zealStreamLink {
             display: none;

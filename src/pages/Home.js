@@ -6,26 +6,25 @@ import VideoContext from "../context/VideoContext";
 
 const Home = () => {
     const styles = `
-        margin: 5rem 0rem;
+        margin: 8rem 0rem;
 
         .videosContainer {
-            width: 100%;
-            grid-gap: 0.25rem;
+            grid-gap:5rem 1rem;
         }
 
-        @media (min-width: 475px) {
+        @media(min-width:600px){
             .videosContainer {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        @media (min-width: 768px) {
+        @media (min-width: 900px) {
             .videosContainer {
                 grid-template-columns: repeat(3, 1fr);
             }
         }
 
-        @media (min-width: 1024px) {
+        @media (min-width: 1200px) {
             .videosContainer {
                 grid-template-columns: repeat(4, 1fr);
             }
@@ -45,11 +44,12 @@ const Home = () => {
             try {
                 const response = await axios({
                     method: "get",
-                    url: "/videos",
+                    url: "https://zeal-stream.herokuapp.com/videos",
                 });
+                console.log(response.data);
                 dispatch({
                     type: "SET_VIDEOS",
-                    payload: response.data.videos,
+                    payload: response.data,
                 });
             } catch (error) {
                 setIsError(true);
@@ -61,16 +61,18 @@ const Home = () => {
     }, [dispatch]);
 
     return (
-        <Container type="col" width="100%" rowCenter customStyles={styles}>
+        <Container type="col" rowCenter customStyles={styles}>
             <Container>
                 {isLoading && <Spinner />}
                 {isError && <Alert type="danger">Something went wrong !</Alert>}
             </Container>
-            <Grid col={1} className="videosContainer">
-                {videos.map((video) => {
-                    return <Video videoDetails={video} key={video.id} />;
-                })}
-            </Grid>
+            <Container type="col" rowCenter width="90%">
+                <Grid col={1} className="videosContainer">
+                    {videos.map((video) => {
+                        return <Video videoDetails={video} key={video._id} />;
+                    })}
+                </Grid>
+            </Container>
         </Container>
     );
 };

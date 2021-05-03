@@ -33,7 +33,7 @@ const Navigation = () => {
             height:1.5rem;
             position: fixed;
             top: 1.25rem;
-            left: 0.25rem;
+            left: 0.5rem;
             z-index: ${style.zIndex[1]};
         }
 

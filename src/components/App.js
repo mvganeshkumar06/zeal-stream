@@ -1,14 +1,14 @@
 import React from "react";
 import { ZealProvider } from "@zeal-ui/core";
-import VideoProvider from "../context/VideoProvider";
+import StreamProvider from "../context/StreamProvider";
 import Router from "../router/Router";
 
 const App = () => {
     return (
         <ZealProvider>
-            <VideoProvider>
+            <StreamProvider>
                 <Router />
-            </VideoProvider>
+            </StreamProvider>
         </ZealProvider>
     );
 };

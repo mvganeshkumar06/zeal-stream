@@ -10,7 +10,11 @@ import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite"
 import VideoLibraryIcon from "@material-ui/icons/VideoLibrary";
 import HomeIcon from "@material-ui/icons/Home";
 import SubscriptionsIcon from "@material-ui/icons/Subscriptions";
+import PersonIcon from "@material-ui/icons/Person";
+import MicIcon from "@material-ui/icons/Mic";
+import VideocamIcon from "@material-ui/icons/Videocam";
 import { Link } from "react-router-dom";
+import useStreamContext from "../hooks/useStreamContext";
 
 const Header = () => {
     const style = useStyleContext();
@@ -21,7 +25,7 @@ const Header = () => {
         position: fixed;
         top: 0;
         border-bottom: ${style.common.border};
-        z-index:${style.zIndex[2]};
+        z-index:${style.zIndex[1]};
         background-color:${theme === "light" ? "white" : style.colors.gray[4]};
 
         .zealStreamLink {
@@ -46,17 +50,22 @@ const Header = () => {
         }
 
         .icon {
-            width:1.5rem;
-            height:1.5rem;
+            width:1.25rem;
+            height:1.25rem;
             margin: 0rem 0.5rem;
         }
 
-        .icon:hover {
+        .iconItem:hover {
             cursor: pointer;
         }
 
         .iconText{
             display:none;
+        }
+
+        .authBtn{
+            margin:0rem 1rem;
+            padding:0.25rem;
         }
 
 
@@ -98,6 +107,19 @@ const Header = () => {
         }
     `;
 
+    const {
+        state: { user },
+        dispatch,
+    } = useStreamContext();
+
+    const logoutUser = () => {
+        dispatch({
+            type: "SET_USER",
+            payload: "",
+        });
+        localStorage.removeItem("user");
+    };
+
     return (
         <Container
             type="row"
@@ -130,6 +152,18 @@ const Header = () => {
                         <Text className="iconText">Home</Text>
                     </Container>
                 </Link>
+                <Link to="/podcasts">
+                    <Container type="col" rowCenter className="iconItem">
+                        <MicIcon className="icon" />
+                        <Text className="iconText">Podcasts</Text>
+                    </Container>
+                </Link>
+                <Link to="/videos">
+                    <Container type="col" rowCenter className="iconItem">
+                        <VideocamIcon className="icon" />
+                        <Text className="iconText">Videos</Text>
+                    </Container>
+                </Link>
                 <Link to="/library">
                     <Container type="col" rowCenter className="iconItem">
                         <VideoLibraryIcon className="icon" />
@@ -142,6 +176,19 @@ const Header = () => {
                         <Text className="iconText">Subscriptions</Text>
                     </Container>
                 </Link>
+                {user ? (
+                    <Container type="col" rowCenter className="iconItem">
+                        <PersonIcon className="icon" onClick={logoutUser} />
+                        <Text className="iconText">Logout</Text>
+                    </Container>
+                ) : (
+                    <Link to="/login">
+                        <Container type="col" rowCenter className="iconItem">
+                            <PersonIcon className="icon" />
+                            <Text className="iconText">Login</Text>
+                        </Container>
+                    </Link>
+                )}
             </Container>
         </Container>
     );

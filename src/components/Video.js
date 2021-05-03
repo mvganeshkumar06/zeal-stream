@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import {
     Container,
     Image,
     Text,
     useStyleContext,
     useThemeContext,
+    useNotify,
 } from "@zeal-ui/core";
 import { PlayListModal } from "./";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
@@ -18,21 +19,10 @@ const Video = ({ videoDetails }) => {
         position:relative;
         margin:0rem;
 
-        .videoThumbnail, .videoGif {
+        .videoImage{
             width:100%;
             height:60%;
-            position: absolute;
-            top: 0;
-            left: 0;
             margin:0rem;
-        }
-
-        .videoThumbnail{
-            z-index:1;
-        }
-
-        .videoThumbnail:hover{
-            opacity:0;
         }
 
         .detailsContainer {
@@ -91,29 +81,23 @@ const Video = ({ videoDetails }) => {
 
     const {
         name,
-        imageUrl: { thumbnailUrl, gifUrl },
+        imageUrl,
         streams,
         duration,
         uploadedDate,
         channel: { name: channelName, avatar },
     } = videoDetails;
-    const [isPlayListModalOpen, setIsPlayListModalOpen] = useState(false);
+
+    const { isOpen, onOpen, onClose } = useNotify();
 
     return (
         <Container type="col" customStyles={styles}>
             <Image
-                src={thumbnailUrl}
-                alt="videoThumbnail"
+                src={imageUrl}
+                alt="videoImage"
                 width="auto"
                 height="auto"
-                className="videoThumbnail"
-            />
-            <Image
-                src={gifUrl}
-                alt="videoGif"
-                width="auto"
-                height="auto"
-                className="videoGif"
+                className="videoImage"
             />
             <Text className="videoDuration">{duration}</Text>
             <Container type="row" width="100%" className="detailsContainer">
@@ -133,16 +117,14 @@ const Video = ({ videoDetails }) => {
                 </Container>
                 <MoreVertIcon
                     className="moreIcon"
-                    onClick={() => setIsPlayListModalOpen(!isPlayListModalOpen)}
+                    onClick={() => onOpen("PLAY_LIST_MODAL")}
                 />
             </Container>
-            {isPlayListModalOpen && (
-                <PlayListModal
-                    isPlayListModalOpen={isPlayListModalOpen}
-                    setIsPlayListModalOpen={setIsPlayListModalOpen}
-                    videoDetails={videoDetails}
-                />
-            )}
+            <PlayListModal
+                isOpen={isOpen}
+                onClose={onClose}
+                videoDetails={videoDetails}
+            />
         </Container>
     );
 };

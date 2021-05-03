@@ -1,13 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Container, Grid, Divider, Text } from "@zeal-ui/core";
 import { Video } from "../components";
-import VideoContext from "../context/VideoContext";
+import useStreamContext from "../hooks/useStreamContext";
 import { useParams } from "react-router";
 
 const PlayList = () => {
     const styles = `    
-        width: 100%;
-        margin: 5rem 0rem;
+        margin: 8rem 0rem;
 
         .videosContainer {
             width: 100%;
@@ -38,24 +37,24 @@ const PlayList = () => {
     `;
 
     const {
-        state: { playList },
-    } = useContext(VideoContext);
+        state: { playlist },
+    } = useStreamContext();
 
     const { id } = useParams();
 
-    const currPlayList = playList.find(
-        (currPlayList) => currPlayList.id === id
+    const currPlaylist = playlist.find(
+        (currPlaylist) => currPlaylist.id === id
     );
 
     return (
         <Container type="col" rowCenter customStyles={styles}>
-            <Text type="mainHeading">{currPlayList.name}</Text>
+            <Text type="mainHeading">{currPlaylist.name}</Text>
             <span className="videosCount">
-                {currPlayList.videos.length} video(s)
+                {currPlaylist.videos.length} video(s)
             </span>
             <Divider />
             <Grid className="videosContainer">
-                {currPlayList.videos.map((video) => {
+                {currPlaylist.videos.map((video) => {
                     return <Video currVideo={video} key={video.id} />;
                 })}
             </Grid>

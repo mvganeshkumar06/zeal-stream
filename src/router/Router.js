@@ -1,7 +1,16 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Header, Navigation } from "../components";
-import { Home, Library, PlayList, Subscriptions } from "../pages";
+import {
+    Home,
+    Library,
+    Login,
+    PlayList,
+    Podcasts,
+    Subscriptions,
+    Videos,
+} from "../pages";
+import PrivateRoute from "./PrivateRoute";
 
 const Router = () => {
     return (
@@ -9,14 +18,23 @@ const Router = () => {
             <Header />
             <Navigation />
             <Switch>
-                <Route path="/subscriptions">
+                <PrivateRoute path="/subscriptions">
                     <Subscriptions />
-                </Route>
-                <Route path="/playlist/:id">
+                </PrivateRoute>
+                <PrivateRoute path="/playlist">
                     <PlayList />
-                </Route>
-                <Route path="/library">
+                </PrivateRoute>
+                <PrivateRoute path="/library">
                     <Library />
+                </PrivateRoute>
+                <Route path="/podcasts">
+                    <Podcasts />
+                </Route>
+                <Route path="/videos">
+                    <Videos />
+                </Route>
+                <Route path="/login">
+                    <Login />
                 </Route>
                 <Route path="/">
                     <Home />

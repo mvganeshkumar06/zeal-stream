@@ -5,7 +5,7 @@ import {
     Home,
     Library,
     Login,
-    PlayList,
+    Playlist,
     Podcasts,
     Subscriptions,
     Videos,
@@ -21,8 +21,8 @@ const Router = () => {
                 <PrivateRoute path="/subscriptions">
                     <Subscriptions />
                 </PrivateRoute>
-                <PrivateRoute path="/playlist">
-                    <PlayList />
+                <PrivateRoute path="/playlist/:playlistId">
+                    <Playlist />
                 </PrivateRoute>
                 <PrivateRoute path="/library">
                     <Library />

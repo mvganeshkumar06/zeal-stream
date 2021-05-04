@@ -1,6 +1,6 @@
 import React from "react";
-import { Container, Grid, Divider, Text } from "@zeal-ui/core";
-import { Video } from "../components";
+import { Container, Grid, Text } from "@zeal-ui/core";
+import { Video, Podcast } from "../components";
 import useStreamContext from "../hooks/useStreamContext";
 import { useParams } from "react-router";
 
@@ -8,56 +8,78 @@ const PlayList = () => {
     const styles = `    
         margin: 8rem 0rem;
 
-        .videosContainer {
+        .streamContainer {
             width: 100%;
             grid-gap: 0.25rem;
         }
 
-        .videosCount {
-            padding-left: 0.5rem;
-        }
-
         @media (min-width: 475px) {
-            .videosContainer {
+            .streamContainer {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (min-width: 768px) {
-            .videosContainer {
+            .streamContainer {
                 grid-template-columns: repeat(3, 1fr);
             }
         }
 
         @media (min-width: 1024px) {
-            .videosContainer {
+            .streamContainer {
                 grid-template-columns: repeat(4, 1fr);
             }
         }
     `;
 
     const {
-        state: { playlist },
+        state: { playlists },
     } = useStreamContext();
 
-    const { id } = useParams();
+    const { playlistId } = useParams();
 
-    const currPlaylist = playlist.find(
-        (currPlaylist) => currPlaylist.id === id
-    );
+    const playlist = playlists.find((playlist) => playlist._id === playlistId);
+
+    const { name, description, podcasts, videos } = playlist;
 
     return (
         <Container type="col" rowCenter customStyles={styles}>
-            <Text type="mainHeading">{currPlaylist.name}</Text>
-            <span className="videosCount">
-                {currPlaylist.videos.length} video(s)
-            </span>
-            <Divider />
-            <Grid className="videosContainer">
-                {currPlaylist.videos.map((video) => {
-                    return <Video currVideo={video} key={video.id} />;
-                })}
-            </Grid>
+            <Text type="mainHeading">{name}</Text>
+            {description && <Text>{description}</Text>}
+            {podcasts.length > 0 && (
+                <>
+                    <Text type="subHeading">Podcasts</Text>
+                    <Container type="col" rowCenter width="90%">
+                        <Grid className="streamContainer">
+                            {podcasts.map((podcast) => {
+                                return (
+                                    <Podcast
+                                        podcastDetails={podcast}
+                                        key={podcast._id}
+                                    />
+                                );
+                            })}
+                        </Grid>
+                    </Container>
+                </>
+            )}
+            {videos.length > 0 && (
+                <>
+                    <Text type="subHeading">Videos</Text>
+                    <Container type="col" rowCenter width="90%">
+                        <Grid className="streamContainer">
+                            {videos.map((video) => {
+                                return (
+                                    <Video
+                                        videoDetails={video}
+                                        key={video._id}
+                                    />
+                                );
+                            })}
+                        </Grid>
+                    </Container>
+                </>
+            )}
         </Container>
     );
 };

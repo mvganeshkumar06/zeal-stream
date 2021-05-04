@@ -3,7 +3,7 @@ import { Container, Spinner, Alert, Grid } from "@zeal-ui/core";
 import { Podcast } from "../components";
 import useStreamContext from "../hooks/useStreamContext";
 
-const Home = () => {
+const Podcasts = () => {
     const styles = `
         margin: 8rem 0rem;
 
@@ -62,4 +62,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Podcasts;

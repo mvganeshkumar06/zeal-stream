@@ -11,10 +11,6 @@ const Videos = () => {
             margin-bottom:2rem;
         }
 
-        .divider{
-            margin:5rem 0rem;
-        }
-
         .videosContainer {
             grid-gap:5rem 1rem;
         }

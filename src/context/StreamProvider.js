@@ -14,11 +14,13 @@ const ProductProvider = ({ children }) => {
             videos: true,
             podcasts: true,
             user: false,
+            playlists: true,
         },
         isError: {
             videos: false,
             podcasts: false,
             user: false,
+            playlists: false,
         },
     });
 
@@ -85,16 +87,14 @@ const ProductProvider = ({ children }) => {
                     method: "get",
                     url: `https://zeal-stream.herokuapp.com/users/${state.user.id}`,
                 });
-                if (response.status >= 200 && response.status <= 299) {
-                    dispatch({
-                        type: "SET_PLAYLISTS",
-                        payload: response.data.playlists,
-                    });
-                    dispatch({
-                        type: "SET_SUBSCRIPTIONS",
-                        payload: response.data.subscriptions,
-                    });
-                }
+                dispatch({
+                    type: "SET_PLAYLISTS",
+                    payload: response.data.playlists,
+                });
+                dispatch({
+                    type: "SET_SUBSCRIPTIONS",
+                    payload: response.data.subscriptions,
+                });
             } catch (error) {
                 dispatch({
                     type: "SET_IS_ERROR",

@@ -7,37 +7,31 @@ import {
     useThemeContext,
     useNotify,
 } from "@zeal-ui/core";
-import { PlayListModal } from "./";
+import { PlaylistModal } from "./index";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 const Video = ({ videoDetails }) => {
     const style = useStyleContext();
     const { theme } = useThemeContext();
     const styles = `
-        width:16rem;
-        height:12rem;
+        width:18rem;
         position:relative;
         margin:0rem;
+        border-radius:${style.common.borderRadius};
 
         .videoImage{
-            width:100%;
-            height:60%;
             margin:0rem;
+            border-radius:0rem;
+            border-top-left-radius:${style.common.borderRadius};
+            border-top-right-radius:${style.common.borderRadius};
         }
 
-        .detailsContainer {
-            position:absolute;
-            top: 65%;
-            margin:0rem;
-        }
-
-        .detailsItem{
-            width:100%;
-            margin:0rem 0.5rem;
+        .videoNameContainer{
+            padding:0rem 0.25rem;
         }
 
         .videoName{
-            margin:0rem;
+            margin:0.25rem 0rem 0rem 0rem;
             font-size:0.85rem;
         }
 
@@ -49,16 +43,25 @@ const Video = ({ videoDetails }) => {
             };
         }
 
+        .moreIcon{
+            margin-top:0.25rem;
+        }
+
         .moreIcon:hover {
             cursor: pointer;
         }
 
+        .videoDetailsContainer{
+            padding:0rem 0.25rem 0.25rem 0.25rem;
+        }
+
         .videoDuration {
-            background-color: black;
-            color: white;
+            background-color:black;
+            color:white;
+            font-weight:bold;
             padding: 0.25rem;
             position: absolute;
-            bottom: 6.5rem;
+            bottom: 7.5rem;
             right: 0.25rem;
             z-index:2;
             border-radius:0.25rem;
@@ -66,15 +69,12 @@ const Video = ({ videoDetails }) => {
         }
 
         .channelAvatar {
-            width: 2.5rem;
-            height: 2.5rem;
             border-radius: 50%;
-            margin:0.25rem 0rem 0rem 0rem;
+            margin:0rem 1rem 0rem 0rem;
         }
 
         @media(min-width:375px){
             width:18rem;
-            height:15rem;
         }
 
     `;
@@ -91,39 +91,57 @@ const Video = ({ videoDetails }) => {
     const { isOpen, onOpen, onClose } = useNotify();
 
     return (
-        <Container type="col" customStyles={styles}>
-            <Image
-                src={imageUrl}
-                alt="videoImage"
-                width="auto"
-                height="auto"
-                className="videoImage"
-            />
-            <Text className="videoDuration">{duration}</Text>
-            <Container type="row" width="100%" className="detailsContainer">
+        <Container
+            type="col"
+            height="100%"
+            withBorder
+            colBetween
+            customStyles={styles}
+        >
+            <Container type="col" height="100%">
                 <Image
-                    src={avatar}
-                    alt="channelAvatar"
-                    className="channelAvatar"
+                    src={imageUrl}
+                    alt="videoImage"
+                    width="100%"
+                    height="70%"
+                    className="videoImage"
                 />
-                <Container type="col" className="detailsItem">
+                <Text className="videoDuration">{duration}</Text>
+                <Container
+                    type="row"
+                    width="100%"
+                    rowBetween
+                    className="videoNameContainer"
+                >
                     <Text bold className="videoName">
                         {name}
                     </Text>
-                    <Text className="videoInfo">{channelName}</Text>
-                    <Text className="videoInfo">
-                        {uploadedDate} | {streams} streams
-                    </Text>
+                    <MoreVertIcon
+                        className="moreIcon"
+                        onClick={() => onOpen("PLAY_LIST_MODAL")}
+                    />
                 </Container>
-                <MoreVertIcon
-                    className="moreIcon"
-                    onClick={() => onOpen("PLAY_LIST_MODAL")}
-                />
             </Container>
-            <PlayListModal
+            <Container type="col" className="videoDetailsContainer">
+                <Container type="row" colCenter>
+                    <Image
+                        src={avatar}
+                        alt="channelAvatar"
+                        width="2rem"
+                        height="2rem"
+                        className="channelAvatar"
+                    />
+                    <Text className="videoInfo">{channelName}</Text>
+                </Container>
+                <Text className="videoInfo">
+                    {uploadedDate} | {streams} streams
+                </Text>
+            </Container>
+            <PlaylistModal
                 isOpen={isOpen}
                 onClose={onClose}
-                videoDetails={videoDetails}
+                streamDetails={videoDetails}
+                isVideo
             />
         </Container>
     );

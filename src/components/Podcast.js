@@ -7,7 +7,7 @@ import {
     useThemeContext,
     useNotify,
 } from "@zeal-ui/core";
-import { PlayListModal } from "./";
+import { PlaylistModal } from "./index";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 const Podcast = ({ podcastDetails }) => {
@@ -54,10 +54,11 @@ const Podcast = ({ podcastDetails }) => {
         }
 
         .podcastDuration {
-            background-color: black;
-            color: white;
+            background-color:black;
+            color:white;
             padding: 0.25rem 0rem;
             font-size:0.75rem;
+            font-weight:bold;
             width:100%;
             margin:0rem;
             text-align:center;
@@ -124,10 +125,11 @@ const Podcast = ({ podcastDetails }) => {
                     </Text>
                 </Container>
             </Container>
-            <PlayListModal
+            <PlaylistModal
                 isOpen={isOpen}
                 onClose={onClose}
-                videoDetails={podcastDetails}
+                streamDetails={podcastDetails}
+                isPodcast
             />
         </Container>
     );

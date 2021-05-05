@@ -11,12 +11,14 @@ import {
     useThemeContext,
 } from "@zeal-ui/core";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import DeleteIcon from "@material-ui/icons/Delete";
 import useStreamContext from "../hooks/useStreamContext";
 import axios from "axios";
 import { useHistory, useRouteMatch } from "react-router-dom";
 
 const PlaylistModal = ({
     isOpen,
+    onOpen,
     onClose,
     streamDetails,
     isPodcast,
@@ -41,11 +43,14 @@ const PlaylistModal = ({
             border-color:${style.colors.gray[3]};
             display:flex;
             flex-direction:column;
-            justify-content:space-between;
         }
 
         .closeBtn:hover, .deletePlaylistIcon:hover {
             cursor: pointer;
+        }
+
+        .deletePlaylistIcon{
+            margin-left:1rem;
         }
 
         .createBtn {
@@ -58,9 +63,19 @@ const PlaylistModal = ({
             padding:0.25rem 1rem;
         }
 
-        .playlistModalFooter {
-            position: relative;
+        .deletePlaylistModalContent{
+            padding:0rem 1rem;
+            height:10rem;
         }
+
+        .deletePlaylistBtn{
+            margin-right:1rem;
+        }
+
+        .playlistNameToDelete{
+            font-weight:bold;
+        }
+
     `;
 
     const {
@@ -80,6 +95,7 @@ const PlaylistModal = ({
     };
 
     const [playlistName, setPlaylistName] = useState("");
+    const [playlistToDelete, setPlaylistToDelete] = useState("");
 
     const history = useHistory();
 
@@ -178,14 +194,45 @@ const PlaylistModal = ({
         }
     };
 
+    const deletePlaylist = (playlistToDelete) => {
+        const deletePlaylistOnDb = async () => {
+            try {
+                const response = await axios({
+                    method: "post",
+                    url: `https://zeal-stream.herokuapp.com/playlists/${playlistToDelete.id}`,
+                });
+                dispatch({
+                    type: "SET_PLAYLISTS",
+                    payload: response.data,
+                });
+            } catch (error) {
+                console.log(error.response?.data.errorMessage);
+                dispatch({
+                    type: "SET_IS_ERROR",
+                    payload: { playlists: true },
+                });
+            } finally {
+                dispatch({
+                    type: "SET_IS_LOADING",
+                    payload: { playlists: false },
+                });
+            }
+        };
+        if (user) {
+            deletePlaylistOnDb();
+        } else {
+            history.push("/login", { pathAfterLogin: getPathAfterLogin() });
+        }
+    };
+
     return (
         <Container type="col" customStyles={styles}>
             <Modal
                 width="18rem"
                 height="25rem"
-                center
+                type="center"
                 className="playlistModal"
-                isOpen={isOpen}
+                isOpen={isOpen === "PLAYLIST_MODAL"}
             >
                 <Container
                     type="row"
@@ -224,6 +271,16 @@ const PlaylistModal = ({
                                 >
                                     {playlist.name}
                                 </Checkbox>
+                                <DeleteIcon
+                                    className="deletePlaylistIcon"
+                                    onClick={() => {
+                                        setPlaylistToDelete({
+                                            id: playlist._id,
+                                            name: playlist.name,
+                                        });
+                                        onOpen("DELETE_PLAYLIST_MODAL");
+                                    }}
+                                />
                             </Container>
                         );
                     })
@@ -233,7 +290,7 @@ const PlaylistModal = ({
                     </Text>
                 )}
                 <Divider className="divider" />
-                <Container type="col" className="playlistModalFooter">
+                <Container type="col" className="playlistModalContent">
                     <Text bold>Create new playlist</Text>
                     <Container type="col" width="100%">
                         <Input
@@ -256,6 +313,55 @@ const PlaylistModal = ({
                             Create
                         </Button>
                     </Container>
+                </Container>
+            </Modal>
+            <Modal
+                isOpen={isOpen === "DELETE_PLAYLIST_MODAL"}
+                width="18rem"
+                height="20rem"
+                type="center"
+                className="playlistModal"
+            >
+                <Container
+                    type="row"
+                    rowBetween
+                    colCenter
+                    className="playlistModalHeader"
+                >
+                    <Text bold>Delete playlist</Text>
+                    <HighlightOffIcon onClick={onClose} className="closeBtn" />
+                </Container>
+                <Divider className="divider" />
+                <Container type="col" className="deletePlaylistModalContent">
+                    <Text>
+                        Are you sure you want to delete{" "}
+                        <span className="playlistNameToDelete">
+                            {playlistToDelete.name}
+                        </span>
+                    </Text>
+                    <Text>
+                        Note that this action is permanent and can not be
+                        undone.
+                    </Text>
+                </Container>
+                <Divider className="divider" />
+                <Container
+                    type="row"
+                    colCenter
+                    className="playlistModalContent"
+                >
+                    <Button
+                        onClick={() => deletePlaylist(playlistToDelete)}
+                        className="deletePlaylistBtn"
+                    >
+                        Yes
+                    </Button>
+                    <Button
+                        onClick={() => onOpen("PLAYLIST_MODAL")}
+                        className="deletePlaylistBtn"
+                    >
+                        Cancel
+                    </Button>
                 </Container>
             </Modal>
         </Container>

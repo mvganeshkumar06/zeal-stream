@@ -106,7 +106,7 @@ const Podcast = ({ podcastDetails }) => {
                     </Text>
                     <MoreVertIcon
                         className="moreIcon"
-                        onClick={() => onOpen("PLAY_LIST_MODAL")}
+                        onClick={() => onOpen("PLAYLIST_MODAL")}
                     />
                 </Container>
                 <Container type="col">
@@ -127,6 +127,7 @@ const Podcast = ({ podcastDetails }) => {
             </Container>
             <PlaylistModal
                 isOpen={isOpen}
+                onOpen={onOpen}
                 onClose={onClose}
                 streamDetails={podcastDetails}
                 isPodcast

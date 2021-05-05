@@ -5,6 +5,11 @@ const reducer = (state, action) => {
                 ...state,
                 videos: action.payload,
             };
+        case "SET_VIDEO":
+            return {
+                ...state,
+                video: action.payload,
+            };
         case "SET_PODCASTS":
             return {
                 ...state,

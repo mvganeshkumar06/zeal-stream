@@ -6,18 +6,21 @@ import axios from "axios";
 const ProductProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, {
         videos: [],
+        video: {},
         podcasts: [],
         user: "",
         playlists: [],
         playlistName: "",
         isLoading: {
             videos: true,
+            video: true,
             podcasts: true,
             user: false,
             playlists: true,
         },
         isError: {
             videos: false,
+            video: false,
             podcasts: false,
             user: false,
             playlists: false,

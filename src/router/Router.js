@@ -6,8 +6,10 @@ import {
     Library,
     Login,
     Playlist,
+    Podcast,
     Podcasts,
     Subscriptions,
+    Video,
     Videos,
 } from "../pages";
 import PrivateRoute from "./PrivateRoute";
@@ -27,8 +29,14 @@ const Router = () => {
                 <PrivateRoute path="/library">
                     <Library />
                 </PrivateRoute>
+                <Route path="/podcasts/:podcastId">
+                    <Podcast />
+                </Route>
                 <Route path="/podcasts">
                     <Podcasts />
+                </Route>
+                <Route path="/videos/:videoId">
+                    <Video />
                 </Route>
                 <Route path="/videos">
                     <Videos />

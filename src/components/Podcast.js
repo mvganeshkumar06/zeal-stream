@@ -9,6 +9,7 @@ import {
 } from "@zeal-ui/core";
 import { PlaylistModal } from "./index";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import { Link } from "react-router-dom";
 
 const Podcast = ({ podcastDetails }) => {
     const style = useStyleContext();
@@ -72,6 +73,7 @@ const Podcast = ({ podcastDetails }) => {
     `;
 
     const {
+        _id,
         name,
         imageUrl,
         streams,
@@ -90,20 +92,24 @@ const Podcast = ({ podcastDetails }) => {
                 height="100%"
                 className="podcastImageContainer"
             >
-                <Image
-                    src={imageUrl}
-                    alt="podcastImage"
-                    width="100%"
-                    height="100%"
-                    className="podcastImage"
-                />
+                <Link to={`/podcasts/${_id}`}>
+                    <Image
+                        src={imageUrl}
+                        alt="podcastImage"
+                        width="100%"
+                        height="100%"
+                        className="podcastImage"
+                    />
+                </Link>
                 <Text className="podcastDuration">{duration}</Text>
             </Container>
             <Container type="col" width="100%" height="100%" colBetween>
                 <Container type="row" width="100%" rowBetween>
-                    <Text bold className="podcastName">
-                        {name}
-                    </Text>
+                    <Link to={`/podcasts/${_id}`}>
+                        <Text bold className="podcastName">
+                            {name}
+                        </Text>
+                    </Link>
                     <MoreVertIcon
                         className="moreIcon"
                         onClick={() => onOpen("PLAYLIST_MODAL")}

@@ -120,7 +120,6 @@ const Video = ({ videoDetails }) => {
                         src={imageUrl}
                         alt="videoImage"
                         width="100%"
-                        height="70%"
                         className="videoImage"
                     />
                 </Link>
@@ -131,9 +130,11 @@ const Video = ({ videoDetails }) => {
                     rowBetween
                     className="videoNameContainer"
                 >
-                    <Text bold className="videoName">
-                        {name}
-                    </Text>
+                    <Link to={`/videos/${_id}`}>
+                        <Text bold className="videoName">
+                            {name}
+                        </Text>
+                    </Link>
                     <MoreVertIcon
                         className="moreIcon"
                         onClick={() => onOpen("PLAYLIST_MODAL")}

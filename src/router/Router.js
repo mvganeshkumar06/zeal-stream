@@ -23,7 +23,7 @@ const Router = () => {
                 <PrivateRoute path="/subscriptions">
                     <Subscriptions />
                 </PrivateRoute>
-                <PrivateRoute path="/playlist/:playlistId">
+                <PrivateRoute path="/library/:playlistId">
                     <Playlist />
                 </PrivateRoute>
                 <PrivateRoute path="/library">

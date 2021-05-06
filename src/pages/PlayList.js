@@ -1,17 +1,8 @@
 import React from "react";
-import {
-    Container,
-    Grid,
-    Text,
-    Divider,
-    useNotify,
-    List,
-    ListItem,
-    Menu,
-} from "@zeal-ui/core";
+import { Container, Grid, Text, Divider } from "@zeal-ui/core";
 import { Video, Podcast } from "../components";
 import useStreamContext from "../hooks/useStreamContext";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
@@ -79,8 +70,6 @@ const PlayList = () => {
 
     const { name, description, podcasts, videos } = playlist;
 
-    const { isOpen, onOpen } = useNotify();
-
     return (
         <Container type="col" customStyles={styles}>
             <Container type="col" width="100%" className="playlistHeader">
@@ -91,20 +80,7 @@ const PlayList = () => {
                     className="playlistNameContainer"
                 >
                     <Text type="mainHeading">{name}</Text>
-                    <MoreVertIcon
-                        className="moreIcon"
-                        onClick={() => onOpen("MENU")}
-                    />
-                    <Menu
-                        isOpen={isOpen === "MENU"}
-                        top="3.25rem"
-                        left="12.25rem"
-                    >
-                        <List type="link">
-                            <ListItem>Edit playlist name</ListItem>
-                            <ListItem>Edit playlist description</ListItem>
-                        </List>
-                    </Menu>
+                    <MoreVertIcon className="moreIcon" />
                 </Container>
                 <Container type="row" colCenter>
                     <Text>{podcasts.length} podcast(s)</Text>

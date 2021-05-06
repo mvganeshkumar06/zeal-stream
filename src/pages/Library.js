@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
     Container,
     Grid,
@@ -6,6 +6,8 @@ import {
     Text,
     useStyleContext,
     useThemeContext,
+    Alert,
+    Spinner,
 } from "@zeal-ui/core";
 import useStreamContext from "../hooks/useStreamContext";
 import { Link } from "react-router-dom";
@@ -39,6 +41,7 @@ const Library = () => {
             padding: ${style.common.padding};
             padding-right:0rem;
             position:relative;
+            border-radius:${style.common.borderRadius};
         }
 
         .playlistCover{
@@ -102,57 +105,72 @@ const Library = () => {
     `;
 
     const {
-        state: { playlists },
+        state: { playlists, isLoading, isError },
+        dispatch,
     } = useStreamContext();
+
+    useEffect(() => {
+        dispatch({
+            type: "SET_IS_LOADING",
+            payload: { playlists: false },
+        });
+    }, [dispatch]);
 
     return (
         <Container type="col" rowCenter width="100%" customStyles={styles}>
             <Text type="mainHeading" className="mainHeading">
                 Playlists
             </Text>
-            <Grid col={1} className="playlistContainer">
-                {playlists.map(
-                    ({
-                        _id,
-                        name,
-                        creator: { userName },
-                        podcasts,
-                        videos,
-                    }) => {
-                        return (
-                            <Container
-                                type="col"
-                                key={_id}
-                                withBorder
-                                className="playlistItem"
-                            >
-                                <Text bold className="playlistName">
-                                    {name}
-                                </Text>
-                                <Text className="playlistCreator">
-                                    {userName}
-                                </Text>
+            {isError.playlists && (
+                <Alert type="danger">Error while getting playlists</Alert>
+            )}
+            {isLoading.playlists ? (
+                <Spinner />
+            ) : (
+                <Grid col={1} className="playlistContainer">
+                    {playlists.map(
+                        ({
+                            _id,
+                            name,
+                            creator: { userName },
+                            podcasts,
+                            videos,
+                        }) => {
+                            return (
                                 <Container
                                     type="col"
-                                    rowCenter
-                                    colCenter
-                                    className="playlistCover"
+                                    key={_id}
+                                    withBorder
+                                    className="playlistItem"
                                 >
-                                    <Text className="playlistContentsLength">
-                                        {podcasts.length + videos.length}
+                                    <Text bold className="playlistName">
+                                        {name}
                                     </Text>
-                                    <PlaylistPlayIcon className="playlistIcon" />
+                                    <Text className="playlistCreator">
+                                        {userName}
+                                    </Text>
+                                    <Container
+                                        type="col"
+                                        rowCenter
+                                        colCenter
+                                        className="playlistCover"
+                                    >
+                                        <Text className="playlistContentsLength">
+                                            {podcasts.length + videos.length}
+                                        </Text>
+                                        <PlaylistPlayIcon className="playlistIcon" />
+                                    </Container>
+                                    <Link to={`/library/${_id}`}>
+                                        <Button className="viewPlaylistBtn">
+                                            View Playlist
+                                        </Button>
+                                    </Link>
                                 </Container>
-                                <Link to={`/playlist/${_id}`}>
-                                    <Button className="viewPlaylistBtn">
-                                        View Playlist
-                                    </Button>
-                                </Link>
-                            </Container>
-                        );
-                    }
-                )}
-            </Grid>
+                            );
+                        }
+                    )}
+                </Grid>
+            )}
         </Container>
     );
 };

@@ -15,6 +15,11 @@ const reducer = (state, action) => {
                 ...state,
                 podcasts: action.payload,
             };
+        case "SET_PODCAST":
+            return {
+                ...state,
+                podcast: action.payload,
+            };
         case "SET_USER":
             return {
                 ...state,

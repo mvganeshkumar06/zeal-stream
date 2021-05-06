@@ -7,7 +7,7 @@ import {
     useThemeContext,
     useNotify,
 } from "@zeal-ui/core";
-import { PlaylistModal } from "./index";
+import PlaylistModal from "./PlaylistModal";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { Link } from "react-router-dom";
 

@@ -1,6 +1,6 @@
 export { default as App } from "./App";
-export { default as Header } from "./Header.js";
-export { default as Navigation } from "./Navigation.js";
-export { default as PlaylistModal } from "./PlaylistModal.js";
+export { default as Header } from "./Header";
+export { default as Navigation } from "./Navigation";
+export { default as PlaylistModal } from "./PlaylistModal";
 export { default as Podcast } from "./Podcast";
-export { default as Video } from "./Video.js";
+export { default as Video } from "./Video";

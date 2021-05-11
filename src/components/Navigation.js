@@ -10,6 +10,8 @@ import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Link } from "react-router-dom";
 import navigationItems from "../utils/NavigationItems";
+import PersonIcon from "@material-ui/icons/Person";
+import useStreamContext from "../hooks/useStreamContext";
 
 const Navigation = () => {
     const style = useStyleContext();
@@ -51,8 +53,16 @@ const Navigation = () => {
             cursor: pointer;
         }
 
-        .list{
-            list-style-type:none;
+        .link{
+            display:flex;
+            align-items:column;
+            margin:0rem;    
+        }
+
+        .link svg{
+            width:1.5rem;
+            height:1.5rem;
+            margin-right:0.5rem;
         }
 
         @media (min-width: 1024px) {
@@ -63,6 +73,19 @@ const Navigation = () => {
     `;
 
     const [isNavigationOpen, setIsNavigationOpen] = useState(false);
+
+    const {
+        state: { user },
+        dispatch,
+    } = useStreamContext();
+
+    const logoutUser = () => {
+        dispatch({
+            type: "SET_USER",
+            payload: "",
+        });
+        localStorage.removeItem("user");
+    };
 
     return (
         <Container type="col" customStyles={styles}>
@@ -76,8 +99,8 @@ const Navigation = () => {
                         className="navigationCloseBtn"
                         onClick={() => setIsNavigationOpen(!isNavigationOpen)}
                     />
-                    <List className="list">
-                        {navigationItems.map(({ id, name, url }) => {
+                    <List type="link">
+                        {navigationItems.map(({ id, name, url, icon }) => {
                             return (
                                 <ListItem key={id}>
                                     <Link
@@ -87,12 +110,33 @@ const Navigation = () => {
                                                 !isNavigationOpen
                                             );
                                         }}
+                                        className="link"
                                     >
+                                        {icon}
                                         {name}
                                     </Link>
                                 </ListItem>
                             );
                         })}
+                        <ListItem key={6}>
+                            {user ? (
+                                <span onClick={logoutUser} className="link">
+                                    <PersonIcon />
+                                    Logout
+                                </span>
+                            ) : (
+                                <Link
+                                    to="/login"
+                                    onClick={() =>
+                                        setIsNavigationOpen(!isNavigationOpen)
+                                    }
+                                    className="link"
+                                >
+                                    <PersonIcon />
+                                    Login
+                                </Link>
+                            )}
+                        </ListItem>
                     </List>
                 </Container>
             )}

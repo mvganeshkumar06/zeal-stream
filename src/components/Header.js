@@ -55,7 +55,7 @@ const Header = () => {
             margin: 0rem 0.5rem;
         }
 
-        .iconItem:hover {
+        .iconItem:hover, .iconText:hover {
             cursor: pointer;
         }
 
@@ -142,8 +142,9 @@ const Header = () => {
                     type="col"
                     rowCenter
                     className="iconItem themeIconItem"
+                    onClick={toggleTheme}
                 >
-                    <Brightness4Icon className="icon" onClick={toggleTheme} />
+                    <Brightness4Icon className="icon" />
                     <Text className="iconText">Theme</Text>
                 </Container>
                 <Link to="/">
@@ -177,8 +178,13 @@ const Header = () => {
                     </Container>
                 </Link>
                 {user ? (
-                    <Container type="col" rowCenter className="iconItem">
-                        <PersonIcon className="icon" onClick={logoutUser} />
+                    <Container
+                        type="col"
+                        rowCenter
+                        className="iconItem"
+                        onClick={logoutUser}
+                    >
+                        <PersonIcon className="icon" />
                         <Text className="iconText">Logout</Text>
                     </Container>
                 ) : (

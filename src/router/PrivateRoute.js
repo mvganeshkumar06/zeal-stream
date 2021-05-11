@@ -1,25 +1,23 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, useLocation } from "react-router-dom";
 import useStreamContext from "../hooks/useStreamContext";
 
-const PrivateRoute = ({ path, children, ...rest }) => {
+const PrivateRoute = ({ children, ...rest }) => {
     const {
         state: { user },
     } = useStreamContext();
 
+    const location = useLocation();
+
     if (user) {
-        return (
-            <Route path={path} {...rest}>
-                {children}
-            </Route>
-        );
+        return <Route {...rest}>{children}</Route>;
     }
 
     return (
         <Redirect
             to={{
                 pathname: "/login",
-                state: { pathAfterLogin: path },
+                state: { pathAfterLogin: location.pathname },
             }}
         />
     );

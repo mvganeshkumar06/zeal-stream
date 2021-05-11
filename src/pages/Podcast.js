@@ -21,6 +21,10 @@ const Podcast = () => {
     const styles = `
         margin: 8rem 0rem;
 
+        .feedbackContainer{
+            margin-bottom:2rem;
+        }
+
         .separator{
             width:0.5rem;
             height:0.5rem;
@@ -113,56 +117,43 @@ const Podcast = () => {
 
     return (
         <Container type="col" rowCenter customStyles={styles}>
-            {isError.podcast && (
-                <Alert type="danger">Error while getting podcast</Alert>
-            )}
-            {isLoading.podcast ? (
-                <Spinner />
-            ) : (
-                <>
-                    <Container
-                        type="col"
-                        withBorder
-                        className="podcastContainer"
-                    >
-                        <iframe
-                            title={name}
-                            src={podcastUrl}
-                            className="podcastFrame"
-                            frameBorder="0"
-                            allow="encrypted-media"
-                            // allowTransparency="true"
-                        />
-                        <Container
-                            type="col"
-                            className="podcastDetailsContainer"
-                        >
-                            <Container type="row" width="100%" rowBetween>
-                                <Text bold>{name}</Text>
-                                <MoreVertIcon
-                                    className="moreIcon"
-                                    onClick={() => onOpen("PLAYLIST_MODAL")}
-                                />
-                            </Container>
-                            <Container type="row" colCenter>
-                                <Text className="podcastInfo">
-                                    {streams} views
-                                </Text>
-                                <FiberManualRecordIcon className="separator" />
-                                <Text className="podcastInfo">
-                                    {uploadedDate}
-                                </Text>
-                            </Container>
+            <Container type="col" className="feedbackContainer">
+                {isLoading.podcast && <Spinner />}
+                {isError.podcast && (
+                    <Alert type="danger">Error while getting podcast</Alert>
+                )}
+            </Container>
+            {!isLoading.podcast && !isError.podcast && (
+                <Container type="col" withBorder className="podcastContainer">
+                    <iframe
+                        title={name}
+                        src={podcastUrl}
+                        className="podcastFrame"
+                        frameBorder="0"
+                        allow="encrypted-media"
+                    />
+                    <Container type="col" className="podcastDetailsContainer">
+                        <Container type="row" width="100%" rowBetween>
+                            <Text bold>{name}</Text>
+                            <MoreVertIcon
+                                className="moreIcon"
+                                onClick={() => onOpen("PLAYLIST_MODAL")}
+                            />
                         </Container>
-                        <PlaylistModal
-                            isOpen={isOpen}
-                            onOpen={onOpen}
-                            onClose={onClose}
-                            streamDetails={podcast}
-                            isVideo
-                        />
+                        <Container type="row" colCenter>
+                            <Text className="podcastInfo">{streams} views</Text>
+                            <FiberManualRecordIcon className="separator" />
+                            <Text className="podcastInfo">{uploadedDate}</Text>
+                        </Container>
                     </Container>
-                </>
+                    <PlaylistModal
+                        isOpen={isOpen}
+                        onOpen={onOpen}
+                        onClose={onClose}
+                        streamDetails={podcast}
+                        isVideo
+                    />
+                </Container>
             )}
         </Container>
     );

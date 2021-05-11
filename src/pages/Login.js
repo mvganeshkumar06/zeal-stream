@@ -18,6 +18,10 @@ const Login = () => {
     const loginContainer = `
         margin: 5rem 0rem;
 
+        .feedbackContainer{
+            margin-bottom:2rem;
+        }
+
         .userNameInput, .passwordInput{
             margin:1rem 0rem;
         }
@@ -107,12 +111,14 @@ const Login = () => {
     return (
         <Container type="col" rowCenter customStyles={loginContainer}>
             <Text type="mainHeading">Login</Text>
-            {isLoading.user && <Spinner />}
-            {isError.user && (
-                <Alert type="danger">
-                    Wrong username or password, please try again
-                </Alert>
-            )}
+            <Container type="col" className="feedbackContainer">
+                {isLoading.user && <Spinner />}
+                {isError.user && (
+                    <Alert type="danger">
+                        Wrong username or password, please try again
+                    </Alert>
+                )}
+            </Container>
             <InputContainer>
                 <Input
                     type="text"

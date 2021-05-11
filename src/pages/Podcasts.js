@@ -46,18 +46,20 @@ const Podcasts = () => {
                     <Alert type="danger">Error while getting podcasts</Alert>
                 )}
             </Container>
-            <Container type="col" rowCenter width="90%">
-                <Grid col={1} className="podcastsContainer">
-                    {podcasts.map((podcast) => {
-                        return (
-                            <Podcast
-                                podcastDetails={podcast}
-                                key={podcast._id}
-                            />
-                        );
-                    })}
-                </Grid>
-            </Container>
+            {!isLoading.podcasts && !isError.podcasts && (
+                <Container type="col" rowCenter width="90%">
+                    <Grid col={1} className="podcastsContainer">
+                        {podcasts.map((podcast) => {
+                            return (
+                                <Podcast
+                                    podcastDetails={podcast}
+                                    key={podcast._id}
+                                />
+                            );
+                        })}
+                    </Grid>
+                </Container>
+            )}
         </Container>
     );
 };

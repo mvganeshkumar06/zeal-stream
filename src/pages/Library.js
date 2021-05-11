@@ -20,6 +20,10 @@ const Library = () => {
     const styles = `
         margin: 8rem 0rem;
 
+        .feedbackContainer{
+            margin-bottom:2rem;
+        }
+        
         .mainHeading{
             margin-bottom:5rem;
         }
@@ -121,12 +125,13 @@ const Library = () => {
             <Text type="mainHeading" className="mainHeading">
                 Playlists
             </Text>
-            {isError.playlists && (
-                <Alert type="danger">Error while getting playlists</Alert>
-            )}
-            {isLoading.playlists ? (
-                <Spinner />
-            ) : (
+            <Container type="col" className="feedbackContainer">
+                {isLoading.playlists && <Spinner />}
+                {isError.playlists && (
+                    <Alert type="danger">Error while getting playlists</Alert>
+                )}
+            </Container>
+            {!isLoading.playlists && !isError.playlists && (
                 <Grid col={1} className="playlistContainer">
                     {playlists.map(
                         ({

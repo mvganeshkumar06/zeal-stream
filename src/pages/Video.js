@@ -117,39 +117,34 @@ const Video = () => {
 
     return (
         <Container type="col" rowCenter customStyles={styles}>
-            {isError.video && (
-                <Alert type="danger">Error while getting video</Alert>
-            )}
-            {isLoading.video ? (
-                <Spinner />
-            ) : (
-                <>
-                    <Container type="col" withBorder className="videoContainer">
-                        <iframe
-                            className="videoFrame"
-                            src={videoUrl}
-                            title={name}
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                        />
-                        <Container type="col" className="videoDetailsContainer">
-                            <Container type="row" width="100%" rowBetween>
-                                <Text bold>{name}</Text>
-                                <MoreVertIcon
-                                    className="moreIcon"
-                                    onClick={() => onOpen("PLAYLIST_MODAL")}
-                                />
-                            </Container>
-                            <Container type="row" colCenter>
-                                <Text className="videoInfo">
-                                    {streams} views
-                                </Text>
-                                <FiberManualRecordIcon className="separator" />
-                                <Text className="videoInfo">
-                                    {uploadedDate}
-                                </Text>
-                            </Container>
+            <Container type="col" className="feedbackContainer">
+                {isLoading.video && <Spinner />}
+                {isError.video && (
+                    <Alert type="danger">Error while getting video</Alert>
+                )}
+            </Container>
+            {!isLoading.video && !isError.video && (
+                <Container type="col" withBorder className="videoContainer">
+                    <iframe
+                        className="videoFrame"
+                        src={videoUrl}
+                        title={name}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                    />
+                    <Container type="col" className="videoDetailsContainer">
+                        <Container type="row" width="100%" rowBetween>
+                            <Text bold>{name}</Text>
+                            <MoreVertIcon
+                                className="moreIcon"
+                                onClick={() => onOpen("PLAYLIST_MODAL")}
+                            />
+                        </Container>
+                        <Container type="row" colCenter>
+                            <Text className="videoInfo">{streams} views</Text>
+                            <FiberManualRecordIcon className="separator" />
+                            <Text className="videoInfo">{uploadedDate}</Text>
                         </Container>
                     </Container>
                     <PlaylistModal
@@ -159,7 +154,7 @@ const Video = () => {
                         streamDetails={video}
                         isVideo
                     />
-                </>
+                </Container>
             )}
         </Container>
     );

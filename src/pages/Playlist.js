@@ -68,8 +68,6 @@ const PlayList = () => {
 
     const playlist = playlists.find((playlist) => playlist._id === playlistId);
 
-    const { name, description, podcasts, videos } = playlist;
-
     return (
         <Container type="col" customStyles={styles}>
             <Container type="col" width="100%" className="playlistHeader">
@@ -79,26 +77,26 @@ const PlayList = () => {
                     colCenter
                     className="playlistNameContainer"
                 >
-                    <Text type="mainHeading">{name}</Text>
+                    <Text type="mainHeading">{playlist.name}</Text>
                     <MoreVertIcon className="moreIcon" />
                 </Container>
                 <Container type="row" colCenter>
-                    <Text>{podcasts.length} podcast(s)</Text>
+                    <Text>{playlist.podcasts.length} podcast(s)</Text>
                     <FiberManualRecordIcon className="separator" />
-                    <Text> {videos.length} video(s)</Text>
+                    <Text> {playlist.videos.length} video(s)</Text>
                 </Container>
                 <Container type="row" colCenter>
                     <Text>
-                        {description.length > 0
-                            ? description
+                        {playlist.description.length > 0
+                            ? playlist.description
                             : "No playlist description"}
                     </Text>
                 </Container>
             </Container>
             <Text type="subHeading">Podcasts</Text>
-            {podcasts.length > 0 ? (
+            {playlist.podcasts.length > 0 ? (
                 <Grid className="streamContainer">
-                    {podcasts.map((podcast) => {
+                    {playlist.podcasts.map((podcast) => {
                         return (
                             <Podcast
                                 podcastDetails={podcast}
@@ -112,9 +110,9 @@ const PlayList = () => {
             )}
             <Divider className="playlistDivider" />
             <Text type="subHeading">Videos</Text>
-            {videos.length > 0 ? (
+            {playlist.videos.length > 0 ? (
                 <Grid className="streamContainer">
-                    {videos.map((video) => {
+                    {playlist.videos.map((video) => {
                         return <Video videoDetails={video} key={video._id} />;
                     })}
                 </Grid>

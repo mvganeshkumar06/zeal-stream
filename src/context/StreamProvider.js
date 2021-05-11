@@ -18,6 +18,7 @@ const ProductProvider = ({ children }) => {
             podcasts: true,
             podcast: true,
             user: false,
+            userDetails: true,
             playlists: true,
         },
         isError: {
@@ -26,6 +27,7 @@ const ProductProvider = ({ children }) => {
             podcasts: false,
             podcast: false,
             user: false,
+            userDetails: false,
             playlists: false,
         },
     });

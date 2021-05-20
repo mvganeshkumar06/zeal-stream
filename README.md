@@ -1,17 +1,9 @@
 # Zeal Stream
 
-## Tech stack used
+## About
 
--   Frontend
-
-    -   React
-    -   React Hooks
-
--   Backend
-
-    -   Node
-    -   Express
-    -   Mongo DB
+Zeal Stream is a platform for learning software development and sharing
+developer experiences through podcasts and videos.
 
 ## Features
 
@@ -69,3 +61,16 @@
     -   Videos
     -   Playlists
     -   About
+
+## Tech stack used
+
+-   Frontend
+
+    -   React
+    -   React Hooks
+
+-   Backend
+
+    -   Node
+    -   Express
+    -   Mongo DB
